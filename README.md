@@ -3,7 +3,7 @@
 A modern and responsive Netflix Clone built with React, Vite, and TailwindCSS.
 This project aims to replicate the core UI and user experience of Netflix, including a dynamic homepage, movie categories, responsive layouts, and smooth animations.
 
-🚀 Technologies Used
+**Technologies Used**
 
 React — Component-based UI library
 
@@ -17,6 +17,8 @@ React Router — Navigation between pages
 
 Heroicons / React Icons — Icon library
 
-🔧 Setup
+**Setup**
+``` bash
 npm install
 npm run dev
+```
