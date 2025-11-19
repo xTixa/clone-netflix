@@ -5,14 +5,14 @@ export default function Navbar() {
         <div className="flex items-center gap-6">
           <span className="text-red-600 font-extrabold text-2xl tracking-wide">NETFLIX</span>
           <nav className="hidden md:flex gap-4 text-sm text-white/80">
-            <a className="hover:text-white">Início</a>
-            <a className="hover:text-white">Séries</a>
-            <a className="hover:text-white">Filmes</a>
-            <a className="hover:text-white">Bombando</a>
+            <a className="hover:text-white">Home</a>
+            <a className="hover:text-white">Series</a>
+            <a className="hover:text-white">Movies</a>
+            <a className="hover:text-white">Trending</a>
           </nav>
         </div>
         <div className="flex items-center gap-3">
-          <button className="hidden sm:inline bg-white text-black px-3 py-1 rounded">Entrar</button>
+          <button className="hidden sm:inline bg-white text-black px-3 py-1 rounded">Login</button>
           <div className="w-8 h-8 bg-zinc-700 rounded-md" />
         </div>
       </div>

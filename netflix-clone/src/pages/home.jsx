@@ -5,17 +5,25 @@ import Footer from '../components/footer'
 
 const sampleRows = [
   {
-    title: 'Recomendados para você',
+    title: 'Recomended',
     items: new Array(12).fill(0).map((_, i) => `Filme ${i + 1}`),
   },
   {
-    title: 'Tendências',
+    title: 'Tendencies',
     items: new Array(10).fill(0).map((_, i) => `Série ${i + 1}`),
   },
   {
-    title: 'Lançamentos',
+    title: 'Realeses',
     items: new Array(8).fill(0).map((_, i) => `Lançamento ${i + 1}`),
   },
+  {
+    title: 'Top 10 Series of all Time',
+    items: new Array(6).fill(0).map((_, i) => `Popular ${i + 1}`),
+  },
+  {
+    title: 'Top 10 Movies of all Time',
+    items: new Array(9).fill(0).map((_, i) => `Popular ${i + 1}`),
+  }
 ]
 
 export default function Home() {
