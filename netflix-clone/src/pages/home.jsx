@@ -10,7 +10,7 @@ export default function Home() {
 
   useEffect(() => {
     async function load() {
-      const [trend, popularMovies, popularSeries, topMovies, topSeries] = await Promise.all([
+      const [trending, popMovies, popSeries, topMovies, topSeries] = await Promise.all([
         tmdb.getTrending(),
         tmdb.getPopularMovies(),
         tmdb.getPopularSeries(),
@@ -19,13 +19,14 @@ export default function Home() {
       ])
 
       setRows([
-        { title: "Trending Now", items: trend.data.results },
-        { title: "Popular Movies", items: popularMovies.data.results },
-        { title: "Popular Series", items: popularSeries.data.results },
+        { title: "Trending Now", items: trending.data.results },
+        { title: "Popular Movies", items: popMovies.data.results },
+        { title: "Popular Series", items: popSeries.data.results },
         { title: "Top Rated Movies", items: topMovies.data.results },
         { title: "Top Rated Series", items: topSeries.data.results },
       ])
     }
+
     load()
   }, [])
 
@@ -41,7 +42,7 @@ export default function Home() {
             <div key={row.title} className="mb-8">
               <h3 className="text-xl font-semibold mb-3">{row.title}</h3>
 
-              <div className="flex overflow-x-auto gap-3">
+              <div className="flex overflow-x-auto gap-3 scrollbar-hide">
                 {row.items.map((item) => (
                   <MovieCard key={item.id} item={item} />
                 ))}

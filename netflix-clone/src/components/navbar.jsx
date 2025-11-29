@@ -11,20 +11,20 @@ export default function Navbar() {
   }
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-black/60 backdrop-blur-sm px-6 py-4">
+    <header className="fixed top-0 left-0 w-full z-50 bg-black/70 backdrop-blur-md px-6 py-4">
       <div className="container flex items-center justify-between">
 
-        {/* LOGO */}
-        <div className="text-red-600 font-extrabold text-2xl tracking-wide cursor-pointer"
-             onClick={() => navigate("/")}>
+        <span
+          className="text-red-600 font-extrabold text-2xl tracking-wide cursor-pointer"
+          onClick={() => navigate("/")}
+        >
           NETFLIX
-        </div>
+        </span>
 
-        {/* SEARCH */}
-        <form onSubmit={search} className="hidden sm:flex bg-zinc-800 rounded px-3 py-1">
+        <form onSubmit={search} className="bg-zinc-800 px-3 py-1 rounded hidden sm:flex">
           <input
             type="text"
-            placeholder="Search"
+            placeholder="Pesquisar"
             className="bg-transparent outline-none text-sm"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
