@@ -1,20 +1,35 @@
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+
 export default function Navbar() {
+  const [query, setQuery] = useState("")
+  const navigate = useNavigate()
+
+  function search(e) {
+    e.preventDefault()
+    if (query.trim() !== "") navigate(`/search?q=${query}`)
+  }
+
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-black/80 to-transparent px-6 py-4">
+    <header className="fixed top-0 left-0 w-full z-50 bg-black/60 backdrop-blur-sm px-6 py-4">
       <div className="container flex items-center justify-between">
-        <div className="flex items-center gap-6">
-          <span className="text-red-600 font-extrabold text-2xl tracking-wide">NETFLIX</span>
-          <nav className="hidden md:flex gap-4 text-sm text-white/80">
-            <a className="hover:text-white">Home</a>
-            <a className="hover:text-white">Series</a>
-            <a className="hover:text-white">Movies</a>
-            <a className="hover:text-white">Trending</a>
-          </nav>
+
+        {/* LOGO */}
+        <div className="text-red-600 font-extrabold text-2xl tracking-wide cursor-pointer"
+             onClick={() => navigate("/")}>
+          NETFLIX
         </div>
-        <div className="flex items-center gap-3">
-          <button className="hidden sm:inline bg-white text-black px-3 py-1 rounded">Login</button>
-          <div className="w-8 h-8 bg-zinc-700 rounded-md" />
-        </div>
+
+        {/* SEARCH */}
+        <form onSubmit={search} className="hidden sm:flex bg-zinc-800 rounded px-3 py-1">
+          <input
+            type="text"
+            placeholder="Search"
+            className="bg-transparent outline-none text-sm"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </form>
       </div>
     </header>
   )
