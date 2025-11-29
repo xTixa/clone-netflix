@@ -1,23 +1,34 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Navbar from "../components/navbar"
 import Banner from "../components/banner"
 import MovieCard from "../components/moviecard"
 import Footer from "../components/footer"
-import sampleRows from "../data/media"
-
-const uiRows = (() => {
-  const movies = sampleRows.find(r => r.title === "Filmes")?.items || []
-  const series = sampleRows.find(r => r.title === "Séries")?.items || []
-
-  return [
-    { title: "Recommended", items: movies.slice(0, 10) },
-    { title: "Trending Now", items: series.slice(0, 10) },
-    { title: "New Releases", items: movies.slice(1, 8) },
-    { title: "Top 10 Series", items: series.slice(0, 10) },
-  ]
-})()
+import { tmdb } from "../services/tmdb"
 
 export default function Home() {
+  const [rows, setRows] = useState([])
+
+  useEffect(() => {
+    async function load() {
+      const [trend, popularMovies, popularSeries, topMovies, topSeries] = await Promise.all([
+        tmdb.getTrending(),
+        tmdb.getPopularMovies(),
+        tmdb.getPopularSeries(),
+        tmdb.getTopMovies(),
+        tmdb.getTopSeries(),
+      ])
+
+      setRows([
+        { title: "Trending Now", items: trend.data.results },
+        { title: "Popular Movies", items: popularMovies.data.results },
+        { title: "Popular Series", items: popularSeries.data.results },
+        { title: "Top Rated Movies", items: topMovies.data.results },
+        { title: "Top Rated Series", items: topSeries.data.results },
+      ])
+    }
+    load()
+  }, [])
+
   return (
     <div className="min-h-screen bg-black text-white pb-12">
       <Navbar />
@@ -26,11 +37,11 @@ export default function Home() {
         <Banner />
 
         <section className="container mt-8">
-          {uiRows.map((row) => (
+          {rows.map((row) => (
             <div key={row.title} className="mb-8">
               <h3 className="text-xl font-semibold mb-3">{row.title}</h3>
 
-              <div className="flex overflow-x-auto gap-3 scroll-smooth">
+              <div className="flex overflow-x-auto gap-3">
                 {row.items.map((item) => (
                   <MovieCard key={item.id} item={item} />
                 ))}

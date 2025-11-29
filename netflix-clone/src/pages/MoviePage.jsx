@@ -1,35 +1,55 @@
 import { useParams } from "react-router-dom"
-import sampleRows from "../data/media"
+import { useEffect, useState } from "react"
+import { tmdb } from "../services/tmdb"
 
 export default function MoviePage() {
   const { id } = useParams()
+  const [movie, setMovie] = useState(null)
+  const [type, setType] = useState("movie")
 
-  const all = [
-    ...sampleRows[0].items,
-    ...sampleRows[1].items
-  ]
+  useEffect(() => {
+    async function load() {
+      try {
+        const data = await tmdb.getMovieDetails(id)
+        setMovie(data.data)
+        setType("movie")
+      } catch {
+        const data = await tmdb.getSeriesDetails(id)
+        setMovie(data.data)
+        setType("tv")
+      }
+    }
+    load()
+  }, [id])
 
-  const movie = all.find(m => m.id === id)
+  if (!movie) return <div className="text-white p-12">A carregar...</div>
 
-  if (!movie) return <div className="text-white p-12">Filme não encontrado.</div>
+  const poster = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+  const trailer = movie.videos?.results?.find(v => v.type === "Trailer")
 
   return (
     <div className="pt-20 container text-white">
       <div className="md:flex gap-8">
-        
-        <img src={movie.poster} className="w-72 rounded shadow-xl" />
+
+        <img src={poster} className="w-72 rounded shadow-xl" />
 
         <div className="space-y-3">
-          <h1 className="text-4xl font-bold">{movie.title}</h1>
-          <p className="text-zinc-300">{movie.synopsis}</p>
+          <h1 className="text-4xl font-bold">
+            {movie.title || movie.name}
+          </h1>
+
+          <p className="text-zinc-300">{movie.overview}</p>
 
           <p className="text-sm text-zinc-400">
-            {movie.genres.join(" • ")} • {movie.runtime} min • ⭐ {movie.rating}
+            {movie.genres?.map(g => g.name).join(" • ")}
           </p>
 
-          <button className="bg-red-600 px-4 py-2 rounded hover:bg-red-700">
-            ▶ Play
-          </button>
+          {trailer && (
+            <iframe
+              className="mt-4 w-full aspect-video rounded"
+              src={`https://www.youtube.com/embed/${trailer.key}`}
+            />
+          )}
         </div>
       </div>
     </div>
