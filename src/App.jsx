@@ -5,7 +5,7 @@ import MoviePage from "./pages/MoviePage"
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/clone-netflix">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/search" element={<Search />} />
