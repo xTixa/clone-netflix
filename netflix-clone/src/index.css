@@ -32,3 +32,41 @@ body {
 /* small helper to hide scrollbar in WebKit */
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 
+@keyframes zoomFade {
+  0% {
+    transform: scale(1.1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-zoomFade {
+  animation: zoomFade 8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1.2s forwards;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+
